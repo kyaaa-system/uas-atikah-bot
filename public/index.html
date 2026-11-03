@@ -1,0 +1,12 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bot MA Indodax</title><style id="css"></style></head>
+<body><main><h1>Bot dry run Indodax · MA 50/100/200 4 jam · Atikah Nurfatkiyah</h1><p class="m">Dashboard langsung dari log bot (<a href="/api/state">/api/state</a>). Angka gap backtest vs forward muncul setelah hitung_ulang dijalankan di akhir forward test.</p><div id="o">memuat…</div></main>
+<script type="module">
+import { forwardFromLogs, botStatus, latihanFromLogs } from './metrics.js';
+import { renderDashboard, CSS } from './render.js';
+document.getElementById('css').textContent = CSS;
+try {
+  const [st, bt] = await Promise.all([fetch('/api/state?snap=BTCIDR').then(r => r.json()), fetch('/backtest_ringkasan.json').then(r => r.json())]);
+  const gap = await fetch('/hasil_hitung_ulang.json').then(r => r.ok ? r.json() : null).catch(() => null);
+  renderDashboard(document.getElementById('o'), { bt, fw: forwardFromLogs(st), gap: gap?.gap ?? null, sumber: location.origin + '/api/state', status: botStatus(st), latihan: latihanFromLogs(st) });
+} catch (e) { document.getElementById('o').textContent = 'Gagal memuat: ' + e; }
+</script></body></html>
