@@ -1,10 +1,10 @@
-BACKTEST 2022-11-01T00:00 → 2026-11-03T00:00 UTC (4.01 thn) · 8 pasangan · fee 0.21%/0.42% + spread & slippage terukur
-return total 54.89% · CAGR 11.54% · MDD -24.91% · trade 234 · WR 26.92% · PF 1.33 · rata2 untung 20.08% / rugi -4.77% · porsi biaya 44.20% (Σ biaya ÷ Σ hasil sebelum biaya)
-beli & tahan BTC/IDR: 336.92% · MDD -49.43% · sinyal beli ditolak validasi data: 109
-  BTCIDR     37 trade · WR 29.73% · PF 1.70 · laba 11.2 jt
-  ETHIDR     35 trade · WR 31.43% · PF 1.45 · laba 9.8 jt
-  XRPIDR     26 trade · WR 15.38% · PF 0.75 · laba -5.7 jt
-  DOGEIDR    22 trade · WR 22.73% · PF 1.50 · laba 13.7 jt
-  TRXIDR     57 trade · WR 24.56% · PF 0.77 · laba -6.0 jt
-  ADAIDR     23 trade · WR 30.43% · PF 1.68 · laba 20.3 jt
-  BNBIDR     34 trade · WR 32.35% · PF 1.53 · laba 11.5 jt
+BACKTEST 2022-11-01T00:00 → 2026-11-03T20:00 UTC (4.01 thn) · 8 pasangan · fee 0.21%/0.42% + spread & slippage terukur
+return total 60.03% · CAGR 12.45% · MDD -24.14% · trade 234 · WR 27.35% · PF 1.36 · rata2 untung 19.88% / rugi -4.71% · porsi biaya 39.95% (Σ biaya ÷ Σ hasil sebelum biaya)
+beli & tahan BTC/IDR: 339.19% · MDD -49.43% · sinyal beli ditolak validasi data: 109
+  BTCIDR     37 trade · WR 29.73% · PF 1.70 · laba 11.4 jt
+  ETHIDR     35 trade · WR 31.43% · PF 1.50 · laba 10.8 jt
+  XRPIDR     26 trade · WR 15.38% · PF 0.77 · laba -5.4 jt
+  DOGEIDR    22 trade · WR 22.73% · PF 1.52 · laba 14.2 jt
+  TRXIDR     57 trade · WR 24.56% · PF 0.81 · laba -4.8 jt
+  ADAIDR     23 trade · WR 34.78% · PF 1.69 · laba 20.7 jt
+  BNBIDR     34 trade · WR 32.35% · PF 1.62 · laba 13.0 jt

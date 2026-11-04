@@ -2,6 +2,8 @@
 
 Atikah Nurfatkiyah · NIM 25110200025 · Finance & Investment · Algorithmic Trading · tugas individu
 
+Repositori: https://github.com/kyaaa-system/uas-atikah-bot
+
 Bot dry run untuk pasar kripto IDR Indodax yang berjalan di Vercel (**https://uas-atikah-bot.vercel.app**, data mentah: `/api/state`).
 - **Data dan eksekusi:** candle 4 jam yang sudah tertutup dan order book dari API publik Indodax, tanpa API key. Order disimulasikan di bid/ask dengan menghabiskan level order book.
 - **Penyimpanan:** state dan log di Upstash Redis (prefix `atikahbot:`).
@@ -65,43 +67,45 @@ Strategi UTS (saham Kompas100 harian, MA 50/100/200) dipindahkan ke kripto IDR. 
 | Minimum order | Rp25.000 (lebih ketat dari `trade_min_base_currency` Rp10.000) | /api/pairs + ketentuan mode Pro |
 | Kuantitas | dibulatkan ke bawah 1e-8 | /api/pairs |
 | Fill bot | beli menghabiskan level **ask**, jual menghabiskan level **bid** (harga rata-rata). Tidak pernah memakai mid atau close. | /api/depth |
-| Fill backtest | open bar berikutnya × (1 ± setengah spread ± slippage), median **terukur** per pasangan dari snapshot order book (`data/spread_median.json`, ukuran order Rp15 jt) | snapshot sejak 2 Nov 2026 |
+| Fill backtest | open bar berikutnya × (1 ± setengah spread ± slippage), median **terukur** per pasangan dari snapshot order book (`data/spread_median.json`, ukuran order Rp15 jt) | snapshot 2 Nov – 4 Nov 2026 01.25 UTC |
 | Penilaian ekuitas | posisi terbuka dinilai di best bid; ekuitas harian = panggilan pertama sesudah 00.00 WIB | — |
 
 ## 4. Backtest (≥ 3 tahun, data asli Indodax)
 
 ```
 node tools/fetch_history.mjs 240 2022-02-01      # tarik candle 4 jam mundur (laptop, berurutan, < 3 request/detik)
-node tools/spread_stats.mjs                      # median spread & slippage dari snapshot
+node tools/spread_stats.mjs 15000000 2026-11-04T01:25   # median spread & slippage dari snapshot, batas data 4 Nov 01.25 UTC (08.25 WIB)
 node tools/backtest.mjs 2023-11-01 --trades data/bt_trades.csv --sinyal data/bt_sinyal.csv --ekuitas data/bt_ekuitas.csv --ringkasan public/backtest_ringkasan.json
 ```
 
-**Hasil 1 Nov 2023 – 3 Nov 2026 (3,0 tahun)**, modal Rp100 jt:
+**Hasil 1 Nov 2023 – 4 Nov 2026 (3,0 tahun)**, modal Rp100 jt:
 
 | Metrik | Bot MA 50/100/200 4 jam | Beli & tahan BTC/IDR |
 |---|---|---|
-| Return total | +74,5% | +154,6% |
-| CAGR | 20,35% | – |
-| MDD | −24,9% | −49,4% |
+| Return total | +78,8% | +155,9% |
+| CAGR | 21,31% | – |
+| MDD | −24,1% | −49,4% |
 | Trade | 174 | – |
-| Win rate | 28,7% | – |
-| Profit factor | 1,49 | – |
-| Rata-rata untung / rugi | +22,0% / −4,7% | – |
-| Porsi biaya (Σ biaya ÷ hasil sebelum biaya) | 35,4% | – |
+| Win rate | 29,3% | – |
+| Profit factor | 1,52 | – |
+| Rata-rata untung / rugi | +21,7% / −4,7% | – |
+| Porsi biaya (Σ biaya ÷ hasil sebelum biaya) | 32,1% | – |
 
-Per tahun: 2023 (Nov–Des) +19,2% · 2024 +70,5% · 2025 −1,6% · 2026 −12,8%. Per pasangan: `data/backtest_2023-11.txt`.
+Per tahun: 2023 (Nov–Des) +19,5% · 2024 +71,9% · 2025 −1,0% · 2026 −12,2%. Per pasangan: `data/backtest_2023-11.txt`.
 
-**Perbandingan timeframe** (aturan dan mesin sama, `data/banding_timeframe.txt`):
+**Catatan slippage.** Angka di `data/spread_median.json` adalah median dari 31 snapshot per pasangan (ukuran order Rp15 jt). Median slippage banyak yang mendekati 0 karena level harga terbaik sering cukup dalam, tetapi kuartil atasnya lebih besar (mis. TRX beli 0,07%, ADA jual 0,15%). Backtest memakai median, jadi bisa sedikit lebih optimistis dibanding fill nyata di saat order book tipis. Selisihnya diukur di refleksi.
+
+**Perbandingan timeframe** (aturan dan mesin sama, `data/banding_timeframe.txt`; dijalankan 3 Nov dengan median spread saat itu, baris 4 jam di sini sudah angka final):
 
 | Timeframe | CAGR | MDD | PF | Trade | Porsi biaya |
 |---|---|---|---|---|---|
 | 1 jam (rencana awal) | 3,3% | −41,3% | 1,04 | 746 | 92,2% |
-| **4 jam (dipakai)** | **20,35%** | −24,9% | 1,49 | 174 | 35,4% |
+| **4 jam (dipakai)** | **21,31%** | −24,1% | 1,52 | 174 | 32,1% |
 | Harian (seperti UTS) | 10,7% | −29,1% | 2,28 | 26 | 10,5% |
 
 **Catatan jujur:**
-- Pemilihan 4 jam dilakukan setelah melihat hasil backtest, jadi angka 20,35% bersifat in-sample.
-- Bila backtest dimulai 1 Nov 2022, CAGR turun menjadi **11,5%** (MDD −24,9%, PF 1,33, 234 trade); `data/backtest_2022-11.txt`.
+- Pemilihan 4 jam dilakukan setelah melihat hasil backtest, jadi angka 21,31% bersifat in-sample.
+- Bila backtest dimulai 1 Nov 2022, CAGR turun menjadi **12,5%** (MDD −24,1%, PF 1,36, 234 trade); `data/backtest_2022-11.txt`.
 - Strategi kalah jauh dari beli & tahan BTC dalam return, tetapi MDD-nya sekitar setengah.
 - 2025 dan 2026 negatif.
 

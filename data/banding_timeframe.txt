@@ -10,3 +10,5 @@ harian     10,66%   -29,07%  2,28    26   38,5%   10,5%
 
 Ketahanan 4 jam: mulai 2022-11-01 → CAGR 11,54%, MDD -24,91%, PF 1,33, 234 trade (beli & tahan BTC +336,9%).
 Beli & tahan BTC/IDR 2023-11 → 2026-11: +154,6%, MDD -49,4%.
+
+Angka final saat freeze (4 Nov 2026, median spread dari snapshot s/d 01.25 UTC), 4 jam: CAGR 21,31%, MDD -24,14%, PF 1,52, 174 trade, porsi biaya 32,1%; mulai 2022-11: CAGR 12,45%, PF 1,36, 234 trade (data/backtest_*.txt).

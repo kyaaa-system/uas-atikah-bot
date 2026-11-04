@@ -46,7 +46,7 @@ export function forwardFromLogs(state, { freeze, akhir } = {}) {
   return { jendela: { mulai: F, akhir: END }, ekuitas: equityStats(curve), trade: tradeStats(trades), trades, beli_tahan_btc: bh,
     operasional: { candle_terjadwal: cand.length, candle_tepat_waktu: onTime.length, uptime: cand.length ? onTime.length / cand.length : null, candle_terlewat: cand.filter(k => !onTime.includes(k)),
       panggilan: calls.length, panggilan_error: calls.filter(c => c.hasil === 'ERROR').length, error_api: (L.errors || []).filter(e => inF(e.t)).length, kill_switch: (L.kill || []).filter(k => inF(k.t)).length },
-    sinyal: (L.signals || []).filter(s => s.candle && iso(s.candle) >= F && iso(s.candle) <= END) };
+    sinyal: (L.signals || []).filter(s => s.candle && calls.some(c => c.hasil === 'DIPROSES' && c.candle === s.candle)) };   // sinyal = candle yang diproses bot di dalam jendela (candle yang dibuka sebelum freeze tetapi diproses sesudahnya ikut, sama dengan backtest jendela)
 }
 
 // ---- pencocokan sinyal bot vs backtest candle demi candle (kunci = candle|pair|sisi|alasan)
