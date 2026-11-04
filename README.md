@@ -159,7 +159,7 @@ node tools/hitung_ulang.mjs               # backtest ulang + backtest jendela fo
 |---|---|
 | Waktu freeze | **Rabu 4 Nov 2026 12.00 WIB** (05.00 UTC) |
 | Forward test | 4 Nov 12.00 – 14 Nov 2026 12.00 WIB |
-| Commit freeze | *(hash diisi sesudah commit)* |
+| Commit freeze | `3e6baedb141414d99b2097230d1d094f80739a21` (2026-11-04 08:28:42 +0700) |
 
 Aturan, parameter, dan universe di `lib/strategy.js`, `lib/costs.js`, dan `lib/indodax.js` (`PAIRS`) **tidak diubah** sesudah commit freeze. Perbaikan bug yang tidak mengubah aturan dicatat di bagian 7.
 
